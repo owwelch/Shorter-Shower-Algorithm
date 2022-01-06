@@ -1,7 +1,8 @@
 import pandas as pd
-import csv
 import os
 import matplotlib.pyplot as plt
+
+#temp readings are 20s apart
 
 temp_col=0
 label_col=1
