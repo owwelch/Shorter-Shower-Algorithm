@@ -1,5 +1,5 @@
-#note: temp readings are 20s apart
-
+# note: temp readings are 20s apart
+# takes in input n for the number of neurons
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
@@ -107,6 +107,10 @@ history = start_model.fit(
     verbose = 0
 )
 
+with open(f'2^{n}_neurons_starts.csv', 'w') as file:
+    writer = csv.writer(file)
+    file.writerow(history.history['val_mae'])
+
 end_model = Sequential(
     [
         BatchNormalization(),
@@ -115,10 +119,22 @@ end_model = Sequential(
     ]
 )
 
-end_model.compile(loss='mse', metrics=['mae'])
-end_model.fit(end_train[:,1:], end_train[:,0], epochs=2000)
-end_val_predicted = end_model.predict(end_val[:,1:])
+end_model.compile(
+    loss='mse',
+    metrics=['mae'],
+    optimizer = Adam(learning_rate=1e-5)
+)
 
-start_maes.append(np.mean(np.absolute(start_val_predicted[:,0] - start_val[:,0])))
-end_maes.append(np.mean(np.absolute(end_val_predicted[:,0] - end_val[:,0])))
+history = end_model.fit(
+    end_train[:,1:],
+    end_train[:,0],
+    epochs = int(1e6),
+    validation_data = (end_val[:,1:], end_val[:,0]),
+    verbose = 0
+)
+
+with open(f'2^{n}_neurons_ends.csv', 'w') as file:
+    writer = csv.writer(file)
+    file.writerow(history.history['val_mae'])
+
 
