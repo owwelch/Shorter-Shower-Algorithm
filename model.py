@@ -40,7 +40,7 @@ if model_type == 'Start':
 elif model_type == 'End':
     window_size = 25
 else:
-    raise ValueError("invalid model type. 2nd argument must be either 'Start' or 'End'.")
+    raise ValueError("invalid model type. 1st argument must be either 'Start' or 'End'.")
 
 #list where the first item is 1 for model_type and 0 for not model_type:
 pts = []
@@ -53,7 +53,7 @@ for i, row in data.iterrows():
 initial_length = len(pts)
 
 #taking a random sample of indices (without replacement) of size k
-random_indices = random.sample(range(len(data) - window_size), k =  len(data) - window_size)
+random_indices = random.sample(range(len(data) - window_size), k = len(data) - window_size)
 
 i = 0
 for _ in range(initial_length):
@@ -62,13 +62,15 @@ for _ in range(initial_length):
         not pd.isnull(data.iloc[i+window_size//2]['label']) and data.iloc[i+window_size//2]['label'].startswith(model_type)
     ):
         i += 1
-    pts.append([0] + data.iloc[i:i+19]['temp'].tolist())
+    pts.append([0] + data.iloc[i:i+window_size]['temp'].tolist())
     i += 1
+
 
 
 #tensors holding the label, followed by a list of 10 temperatures:
 data = np.asarray(pts)
 np.random.shuffle(data)
+print(f'data shape: {data.shape}')
 
 data_length = data.shape[0]
 
@@ -102,4 +104,5 @@ history = model.fit(
     verbose = 0
 )
 
-print(','.join(history.history['val_mae']))
+print(','.join([str(n) for n in history.history['val_mae']]))
+print(','.join([str(n) for n in history.history['mae']]))
