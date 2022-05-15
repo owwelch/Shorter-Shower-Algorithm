@@ -70,7 +70,6 @@ for _ in range(initial_length):
 #tensors holding the label, followed by a list of 10 temperatures:
 data = np.asarray(pts)
 np.random.shuffle(data)
-print(f'data shape: {data.shape}')
 
 data_length = data.shape[0]
 
@@ -93,7 +92,7 @@ model = Sequential(
 model.compile(
     loss='mse',
     metrics=['mae'],
-    optimizer = tf.keras.optimizers.Adam(learning_rate=1e-5)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=1e-4)
 )
 
 history = model.fit(
