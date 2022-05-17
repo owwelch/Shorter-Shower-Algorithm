@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for n in {1..10}; do
+for n in 5; do
 	for s in Start End; do
 		sbatch << EOT
 #!/bin/bash
