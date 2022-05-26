@@ -84,7 +84,7 @@ n = int(sys.argv[2])
 model = Sequential(
     [
         BatchNormalization(),
-        Dense(2**n, activation = 'relu', input_shape=(19,)),
+        Dense(2**n, activation = 'relu', input_shape=(window_size,)),
         Dense(1, activation = 'sigmoid')
     ]
 )
@@ -92,7 +92,6 @@ model = Sequential(
 
 os.chdir('..')
 checkpoint_path = f"training_{n}_{model_type}/cp.ckpt"
-checkpoint_dir = os.path.dirname(checkpoint_path)
 
 cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
         save_weights_only=True,
