@@ -90,7 +90,8 @@ model = Sequential(
 )
 
 
-checkpoint_path = f"training_1_{model_type}/cp.ckpt"
+os.chdir('..')
+checkpoint_path = f"training_{n}_{model_type}/cp.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
 
 cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
@@ -106,7 +107,7 @@ model.compile(
 history = model.fit(
     train[:,1:],
     train[:,0],
-    epochs = int(1e6),
+    epochs = int(4*1e5),
     #validation_data = (val[:,1:], val[:,0]),
     verbose = 0,
     callbacks = [cp_callback]
