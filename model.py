@@ -106,11 +106,11 @@ model.compile(
 history = model.fit(
     train[:,1:],
     train[:,0],
-    epochs = int(4*1e5),
-    #validation_data = (val[:,1:], val[:,0]),
+    epochs = int(1e6),
+    validation_data = (val[:,1:], val[:,0]),
     verbose = 0,
     callbacks = [cp_callback]
 )
 
-#print(','.join([str(n) for n in history.history['val_mae']]))
-#print(','.join([str(n) for n in history.history['mae']]))
+print(','.join([str(n) for n in history.history['val_mae']]))
+print(','.join([str(n) for n in history.history['mae']]))
