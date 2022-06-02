@@ -8,8 +8,8 @@ for n in 4; do
 #SBATCH --job-name="owelch_script"
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=8192
-#SBATCH -o "/home/students/owelch/Shorter-Shower-Algorithm/results/2^"${n-1}"_neurons_"$s".csv"
-#SBATCH -e "/home/students/owelch/Shorter-Shower-Algorithm/results/2^"${n-1}"_neurons_"$s".err"
+#SBATCH -o "/home/students/owelch/Shorter-Shower-Algorithm/results/2^"${n}"_neurons_"$s".csv"
+#SBATCH -e "/home/students/owelch/Shorter-Shower-Algorithm/results/2^"${n}"_neurons_"$s".err"
 
 cd /home/students/owelch/Shorter-Shower-Algorithm
 python model.py $s $n
