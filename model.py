@@ -19,12 +19,14 @@ for folder in os.listdir():
     if os.path.isdir(folder):
         os.chdir(folder)
         for file in os.listdir():
-            if file.startswith('~'):
+            if file.startswith('~') or file.startswith('.'):
                 continue
-            df = pd.read_excel(file, sheet_name="DATA", usecols='C,D', skiprows = 1)
-            df.columns = ['temp', 'label']
-            # to ensure that there are breaks between each recorded shower:
-            df.loc[df.shape[0]] = [None, None]
+            if file.endswith('csv'):
+                df = pd.read_csv(file)
+            else:
+                df = pd.read_excel(file, sheet_name="DATA", usecols='C,D', skiprows = 1)
+                df.columns = ['temp', 'label']
+            df.loc[df.shape[0]] = [None, None]# to ensure that there are breaks between each recorded shower
             dfs[file] = df
         os.chdir('..')
 
