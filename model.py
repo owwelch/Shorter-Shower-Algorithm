@@ -42,8 +42,7 @@ if model_type == 'Start':
 elif model_type == 'End':
     window_size = 25
 else:
-    raise ValueError("inval
-                     id model type. 1st argument must be either 'Start' or 'End'.")
+    raise ValueError("invalid model type. 1st argument must be either 'Start' or 'End'.")
 
 #list where the first item is 1 for model_type and 0 for not model_type:
 pts = []
@@ -113,7 +112,7 @@ history = model.fit(
     epochs = int(1e6),
     validation_data = (val[:,1:], val[:,0]),
     verbose = 0,
-    callbacks = [cp_callback]
+    #callbacks = [cp_callback]
 )
 
 print(','.join([str(n) for n in history.history['val_mae']]))
