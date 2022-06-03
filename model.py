@@ -42,7 +42,8 @@ if model_type == 'Start':
 elif model_type == 'End':
     window_size = 25
 else:
-    raise ValueError("invalid model type. 1st argument must be either 'Start' or 'End'.")
+    raise ValueError("inval
+                     id model type. 1st argument must be either 'Start' or 'End'.")
 
 #list where the first item is 1 for model_type and 0 for not model_type:
 pts = []
@@ -68,7 +69,8 @@ for _ in range(initial_length):
     i += 1
 
 
-
+np.random.seed(0)
+                     
 #tensors holding the label, followed by a list of 10 temperatures:
 data = np.asarray(pts)
 np.random.shuffle(data)
