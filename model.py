@@ -103,13 +103,13 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 model.compile(
     loss='mse',
     metrics=['mae'],
-    optimizer = tf.keras.optimizers.Adam(learning_rate=1e-4)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=1e-5)
 )
 
 history = model.fit(
     train[:,1:],
     train[:,0],
-    epochs = int(1e6),
+    epochs = int(1e7),
     validation_data = (val[:,1:], val[:,0]),
     verbose = 0,
     #callbacks = [cp_callback]
